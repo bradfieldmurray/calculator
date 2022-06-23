@@ -1,9 +1,31 @@
 const numberBtns = [0,1,2,3,4,5,6,7,8,9];
+
 const operatorBtns = new Array(4);
 
+
+const operatorLiterals = ['+', '-', '*', '/'];
 const operatorSymbols = [String.fromCharCode(0x002B), String.fromCharCode(0x2212), String.fromCharCode(0x00D7), String.fromCharCode(0x00F7)];
 
+//set up listeners for keyboard entry
+const body = document.querySelector('body');
+body.addEventListener('keydown', (e) => {
 
+    //check for outlier of spacebar getting pressed
+    if(e.key != ' '){
+        //check to see if a number has been pressed
+        if(numberBtns.indexOf(Number(e.key)) != -1) {
+            if(equationMid.textContent == ''){
+                equationLeft.textContent += e.key;
+            } else {
+                equationRight.textContent += e.key;
+            }
+        }
+    }
+
+
+    // console.log(numberBtns.indexOf(Number(e.key)))
+
+})
 
 //main container variable
 const container = document.getElementById('container');
