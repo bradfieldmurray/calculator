@@ -1,4 +1,4 @@
-const numberBtns = [0,1,2,3,4,5,6,7,8,9];
+const numberLiterals = [0,1,2,3,4,5,6,7,8,9];
 
 
 const operatorLiterals = ['+', '-', '*', '/'];
@@ -67,7 +67,7 @@ body.addEventListener('keydown', (e) => {
         evaluateEquation();
     } else if(e.key != ' '){
         //check to see if a number has been pressed
-        if(numberBtns.indexOf(Number(e.key)) != -1) {
+        if(numberLiterals.indexOf(Number(e.key)) != -1) {
             addToEquation(e.key);
         } else if(operatorSymbols[operatorLiterals.indexOf(e.key)] != -1) {
             addOperatorToEquation(operatorSymbols[operatorLiterals.indexOf(e.key)]);
@@ -125,7 +125,7 @@ container.appendChild(containerBottom);
 //main container for number buttons
 const numberPane = document.createElement('div');
 
-numberBtns.forEach((button, index, array) => {
+numberLiterals.forEach((button, index, array) => {
     button = document.createElement('button');
     button.classList.add('number');
     button.textContent = array[index];
@@ -166,7 +166,7 @@ containerBottom.appendChild(numberPane);
 const operatorPane = document.createElement('div');
 
 
-
+//create and initialize dom elements and create listeners
 operatorLiterals.forEach((button,index) => {
     button = document.createElement('button');
     button.classList.add('operators');
@@ -215,8 +215,6 @@ backBtn.classList.add('otherBtns','backspaceBtn');
 miscPane.appendChild(backBtn)
 
 backBtn.addEventListener('click', () => removeFromEquation());
-
-
 
 
 containerBottom.appendChild(miscPane);
