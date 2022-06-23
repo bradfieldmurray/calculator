@@ -1,4 +1,4 @@
-const numberBtns = [0,1,2,3,4,5,6,7,8,9,'.'];
+const numberBtns = [0,1,2,3,4,5,6,7,8,9];
 const operatorBtns = new Array(4);
 
 const operatorSymbols = [String.fromCharCode(0x002B), String.fromCharCode(0x2212), String.fromCharCode(0x00D7), String.fromCharCode(0x00F7)];
@@ -67,6 +67,25 @@ numberBtns.forEach((button, index, array) => {
             equationRight.textContent += button.textContent;
         }
     });
+});
+
+const periodBtn = document.createElement('button');
+periodBtn.classList.add('periodBtn');
+periodBtn.textContent = '.';
+numberPane.appendChild(periodBtn);
+
+periodBtn.addEventListener('click', () => {
+    if(equationLeft.textContent != '') {
+        if(!equationLeft.textContent.includes('.')) {
+            equationLeft.textContent += periodBtn.textContent;
+        }
+    }
+
+    if(equationRight.textContent != '') {
+        if(!equationRight.textContent.includes('.')) {
+            equationRight.textContent += periodBtn.textContent;
+        }
+    }
 });
 
 
@@ -181,5 +200,3 @@ const op = [add, subtract, multiply, divide];
 
 //get value of equation entered
 const operate = (a,symbol,b) => op[symbol](a,b);
-
-

@@ -63,6 +63,10 @@ button {
     height:120px;
 }
 
+.periodBtn {
+    width:120px;
+}
+
 .numbers {
     color:black;
 }
