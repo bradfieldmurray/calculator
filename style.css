@@ -11,6 +11,8 @@ body {
 button {
     width:60px;
     height:60px;
+    font-size:50px;
+    font-weight:bolder;
 }
 
 #container {
@@ -30,6 +32,12 @@ button {
     grid-template-columns: 1fr 1fr 1fr;
 }
 
+.equation {
+    font-size:50px;
+    width:50px;
+    height:50px;
+}
+
 .containerBottom {
     display:grid;
     grid-template-columns: 180px 60px 180px;
@@ -46,20 +54,18 @@ button {
 }
 
 
-.number,
+
 .operators {
-    font-size:50px;
-    font-weight:bolder;
+    color:deepskyblue;
+}
+
+.numbers {
     color:black;
 }
 
-.operators {
-    color:deepskyblue
+.otherBtns {
+    width:120px;
+    font-size:40px;
 }
 
-.equation {
-    font-size:50px;
-    width:50px;
-    height:50px;
-}
 

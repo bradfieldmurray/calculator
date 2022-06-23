@@ -1,4 +1,4 @@
-const numberBtns = [0,1,2,3,4,5,6,7,8,9];
+const numberBtns = [0,1,2,3,4,5,6,7,8,9,'.'];
 const operatorBtns = new Array(4);
 
 const operatorSymbols = [String.fromCharCode(0x002B), String.fromCharCode(0x2212), String.fromCharCode(0x00D7), String.fromCharCode(0x00F7)];
@@ -54,10 +54,10 @@ container.appendChild(containerBottom);
 //main container for number buttons
 const numberPane = document.createElement('div');
 
-numberBtns.forEach((button, index) => {
+numberBtns.forEach((button, index, array) => {
     button = document.createElement('button');
     button.classList.add('number');
-    button.textContent = index;
+    button.textContent = array[index];
     numberPane.appendChild(button);
 
     button.addEventListener('click', () => {
@@ -68,6 +68,7 @@ numberBtns.forEach((button, index) => {
         }
     });
 });
+
 
 containerBottom.appendChild(numberPane);
 
@@ -80,11 +81,6 @@ containerBottom.appendChild(numberPane);
 
 const operatorPane = document.createElement('div');
 
-//
-const equalBtn = document.createElement('button');
-equalBtn.textContent = String.fromCharCode(0x003D);
-equalBtn.classList.add('operators')
-// containerTop.appendChild(equalBtn)
 
 
 for(let i =0; i < 4; i++) {
@@ -97,7 +93,9 @@ for(let i =0; i < 4; i++) {
 
 operatorBtns.forEach((button) => {
     button.addEventListener('click', () =>{
-        equationMid.textContent = `${button.textContent}`;
+        if(equationLeft.textContent != '') {
+            equationMid.textContent = `${button.textContent}`;
+       }
     });
 });
 
@@ -108,7 +106,14 @@ containerBottom.appendChild(operatorPane);
 
 //--------------- RIGHT OF BOTTOM ------------------------//
 
+const miscPane = document.createElement('div');
 
+
+//equals button
+const equalBtn = document.createElement('button');
+equalBtn.textContent = String.fromCharCode(0x003D);
+equalBtn.classList.add('otherBtns')
+miscPane.appendChild(equalBtn);
 
 equalBtn.addEventListener('click', () => {
 
@@ -119,6 +124,47 @@ equalBtn.addEventListener('click', () => {
 });
 
 
+//clear button
+const clrBtn = document.createElement('button');
+clrBtn.textContent = "C";
+clrBtn.classList.add('otherBtns');
+miscPane.appendChild(clrBtn)
+
+clrBtn.addEventListener('click', () => {
+    equationLeft.textContent = '';
+    equationMid.textContent= '';
+    equationRight.textContent = '';
+});
+
+
+//backspace button
+const backBtn = document.createElement('button');
+backBtn.textContent = String.fromCharCode(0x2190);
+backBtn.classList.add('otherBtns');
+miscPane.appendChild(backBtn)
+
+backBtn.addEventListener('click', () => {
+    if(equationRight.textContent != '') {
+        equationRight.textContent = removeOne(equationRight.textContent);
+    } else if(equationMid.textContent != '') {
+        equationMid.textContent = removeOne(equationMid.textContent);
+    } else {
+        equationLeft.textContent = removeOne(equationLeft.textContent);
+    }
+
+});
+
+function removeOne(string) {
+    return Array.from(string)
+    .slice(0,string.length-1)
+    .join('');
+}
+
+
+
+containerBottom.appendChild(miscPane);
+
+
 
 
 
@@ -126,7 +172,7 @@ equalBtn.addEventListener('click', () => {
 const add = (a,b) => a+b;
 const subtract = (a,b) => a-b;
 const multiply = (a,b) => a*b;
-const divide = (a,b) => a/b;
+const divide = (a,b) => (b==0) ? alert("Nice try") : (a/b).toFixed(2);
 
 //array that stores references to operator functions (coincides with array of operator symbol for easy matching)
 const op = [add, subtract, multiply, divide];
