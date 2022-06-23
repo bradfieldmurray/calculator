@@ -1,10 +1,22 @@
 const numberBtns = [0,1,2,3,4,5,6,7,8,9];
 
-const operatorBtns = new Array(4);
-
 
 const operatorLiterals = ['+', '-', '*', '/'];
 const operatorSymbols = [String.fromCharCode(0x002B), String.fromCharCode(0x2212), String.fromCharCode(0x00D7), String.fromCharCode(0x00F7)];
+
+//functions for each operator
+const add = (a,b) => a+b;
+const subtract = (a,b) => a-b;
+const multiply = (a,b) => a*b;
+const divide = (a,b) => (b==0) ? alert("Nice try") : (a/b).toFixed(2);
+
+//array that stores references to operator functions (coincides with array of operator symbol for easy matching)
+const op = [add, subtract, multiply, divide];
+
+
+//get value of equation entered
+const operate = (a,symbol,b) => op[symbol](a,b);
+
 
 function addToEquation(value) {
     if(equationMid.textContent == ''){
@@ -36,6 +48,13 @@ function evaluateEquation() {
         equationMid.textContent = '';
         equationRight.textContent = '';
     }
+}
+
+//removes one character from string (used with backspace operations)
+function removeOne(string) {
+    return Array.from(string)
+    .slice(0,string.length-1)
+    .join('');
 }
 
 //set up listeners for keyboard entry
@@ -148,15 +167,12 @@ const operatorPane = document.createElement('div');
 
 
 
-for(let i =0; i < 4; i++) {
-    operatorBtns[i] = document.createElement('button');
-    operatorBtns[i].classList.add('operators');
-    operatorBtns[i].textContent = operatorSymbols[i];
-    operatorPane.appendChild(operatorBtns[i]);
-}
+operatorLiterals.forEach((button,index) => {
+    button = document.createElement('button');
+    button.classList.add('operators');
+    button.textContent = operatorSymbols[index];
+    operatorPane.appendChild(button)
 
-
-operatorBtns.forEach((button) => {
     button.addEventListener('click', () => addOperatorToEquation(button.textContent));
 });
 
@@ -176,9 +192,7 @@ equalBtn.textContent = String.fromCharCode(0x003D);
 equalBtn.classList.add('otherBtns')
 miscPane.appendChild(equalBtn);
 
-equalBtn.addEventListener('click', () => {
-    evaluateEquation();
-});
+equalBtn.addEventListener('click', () => evaluateEquation());
 
 
 //clear button
@@ -202,30 +216,8 @@ miscPane.appendChild(backBtn)
 
 backBtn.addEventListener('click', () => removeFromEquation());
 
-function removeOne(string) {
-    return Array.from(string)
-    .slice(0,string.length-1)
-    .join('');
-}
 
 
 
 containerBottom.appendChild(miscPane);
 
-
-
-
-
-//functions for each operator
-const add = (a,b) => a+b;
-const subtract = (a,b) => a-b;
-const multiply = (a,b) => a*b;
-const divide = (a,b) => (b==0) ? alert("Nice try") : (a/b).toFixed(2);
-
-//array that stores references to operator functions (coincides with array of operator symbol for easy matching)
-const op = [add, subtract, multiply, divide];
-
-
-
-//get value of equation entered
-const operate = (a,symbol,b) => op[symbol](a,b);
