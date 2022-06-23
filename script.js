@@ -6,24 +6,54 @@ const operatorBtns = new Array(4);
 const operatorLiterals = ['+', '-', '*', '/'];
 const operatorSymbols = [String.fromCharCode(0x002B), String.fromCharCode(0x2212), String.fromCharCode(0x00D7), String.fromCharCode(0x00F7)];
 
+function addToEquation(value) {
+    if(equationMid.textContent == ''){
+        equationLeft.textContent += value;
+    } else {
+        equationRight.textContent += value;
+    }
+}
+
+function addOperatorToEquation(value) {
+    if(equationLeft.textContent != '') {
+        equationMid.textContent = value;
+    }
+}
+
+function removeFromEquation() {
+    if(equationRight.textContent != '') {
+        equationRight.textContent = removeOne(equationRight.textContent);
+    } else if(equationMid.textContent != '') {
+        equationMid.textContent = removeOne(equationMid.textContent);
+    } else {
+        equationLeft.textContent = removeOne(equationLeft.textContent);
+    }
+}
+
+function evaluateEquation() {
+    if(equationLeft.textContent != '' && equationMid != '' && equationRight.textContent != ''){
+        equationLeft.textContent = operate(Number(equationLeft.textContent), operatorSymbols.indexOf(equationMid.textContent), Number(equationRight.textContent));
+        equationMid.textContent = '';
+        equationRight.textContent = '';
+    }
+}
+
 //set up listeners for keyboard entry
 const body = document.querySelector('body');
 body.addEventListener('keydown', (e) => {
 
-    //check for outlier of spacebar getting pressed
-    if(e.key != ' '){
+    if(e.key == 'Backspace') {
+        removeFromEquation();
+    } else if(e.key == 'Enter') {
+        evaluateEquation();
+    } else if(e.key != ' '){
         //check to see if a number has been pressed
         if(numberBtns.indexOf(Number(e.key)) != -1) {
-            if(equationMid.textContent == ''){
-                equationLeft.textContent += e.key;
-            } else {
-                equationRight.textContent += e.key;
-            }
+            addToEquation(e.key);
+        } else if(operatorSymbols[operatorLiterals.indexOf(e.key)] != -1) {
+            addOperatorToEquation(operatorSymbols[operatorLiterals.indexOf(e.key)]);
         }
     }
-
-
-    // console.log(numberBtns.indexOf(Number(e.key)))
 
 })
 
@@ -82,13 +112,7 @@ numberBtns.forEach((button, index, array) => {
     button.textContent = array[index];
     numberPane.appendChild(button);
 
-    button.addEventListener('click', () => {
-        if(equationMid.textContent == ''){
-            equationLeft.textContent += button.textContent;
-        } else {
-            equationRight.textContent += button.textContent;
-        }
-    });
+    button.addEventListener('click', () => addToEquation(array[index]));
 });
 
 const periodBtn = document.createElement('button');
@@ -133,11 +157,7 @@ for(let i =0; i < 4; i++) {
 
 
 operatorBtns.forEach((button) => {
-    button.addEventListener('click', () =>{
-        if(equationLeft.textContent != '') {
-            equationMid.textContent = `${button.textContent}`;
-       }
-    });
+    button.addEventListener('click', () => addOperatorToEquation(button.textContent));
 });
 
 containerBottom.appendChild(operatorPane);
@@ -157,11 +177,7 @@ equalBtn.classList.add('otherBtns')
 miscPane.appendChild(equalBtn);
 
 equalBtn.addEventListener('click', () => {
-    if(equationLeft.textContent != '' && equationMid != '' && equationRight.textContent != ''){
-        equationLeft.textContent = operate(Number(equationLeft.textContent), operatorSymbols.indexOf(equationMid.textContent), Number(equationRight.textContent));
-        equationMid.textContent = '';
-        equationRight.textContent = '';
-    }
+    evaluateEquation();
 });
 
 
@@ -184,16 +200,7 @@ backBtn.textContent = String.fromCharCode(0x2190);
 backBtn.classList.add('otherBtns','backspaceBtn');
 miscPane.appendChild(backBtn)
 
-backBtn.addEventListener('click', () => {
-    if(equationRight.textContent != '') {
-        equationRight.textContent = removeOne(equationRight.textContent);
-    } else if(equationMid.textContent != '') {
-        equationMid.textContent = removeOne(equationMid.textContent);
-    } else {
-        equationLeft.textContent = removeOne(equationLeft.textContent);
-    }
-
-});
+backBtn.addEventListener('click', () => removeFromEquation());
 
 function removeOne(string) {
     return Array.from(string)
