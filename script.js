@@ -116,11 +116,11 @@ equalBtn.classList.add('otherBtns')
 miscPane.appendChild(equalBtn);
 
 equalBtn.addEventListener('click', () => {
-
-    equationLeft.textContent = operate(Number(equationLeft.textContent), operatorSymbols.indexOf(equationMid.textContent), Number(equationRight.textContent));
-    equationMid.textContent = '';
-    equationRight.textContent = '';
-
+    if(equationLeft.textContent != '' && equationMid != '' && equationRight.textContent != ''){
+        equationLeft.textContent = operate(Number(equationLeft.textContent), operatorSymbols.indexOf(equationMid.textContent), Number(equationRight.textContent));
+        equationMid.textContent = '';
+        equationRight.textContent = '';
+    }
 });
 
 
@@ -140,7 +140,7 @@ clrBtn.addEventListener('click', () => {
 //backspace button
 const backBtn = document.createElement('button');
 backBtn.textContent = String.fromCharCode(0x2190);
-backBtn.classList.add('otherBtns');
+backBtn.classList.add('otherBtns','backspaceBtn');
 miscPane.appendChild(backBtn)
 
 backBtn.addEventListener('click', () => {

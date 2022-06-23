@@ -24,10 +24,10 @@ button {
 }
 
 .containerTop {
-    background-color:deepskyblue;
+    background-color:rgb(102, 152, 170);
     height:60px;
     width:360px;
-    border:1px solid gray;
+    border:1px solid rgb(131, 102, 102);
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
@@ -59,6 +59,10 @@ button {
     color:deepskyblue;
 }
 
+.backspaceBtn {
+    height:120px;
+}
+
 .numbers {
     color:black;
 }
@@ -66,6 +70,13 @@ button {
 .otherBtns {
     width:120px;
     font-size:40px;
+    background-color:rgb(0, 0, 0);
+    color:deepskyblue;
+}
+
+.otherBtns:hover {
+    background-color:deepskyblue;
+    color:black;
 }
 
 
