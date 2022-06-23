@@ -8,25 +8,49 @@ body {
     justify-content: center;
 }
 
-#container {
-    background-color: rgb(0, 68, 59);
-    width:600px;
-    height:600px;
-    display:grid;
+button {
+    width:60px;
+    height:60px;
 }
 
-.display {
-    background-color:rgb(78, 8, 8);
-    height:50px;
-    width:200px;
-    display:flex;
+#container {
+    background-color: rgb(87, 85, 85);
+    width:360px;
+    height:300px;
+    display:grid;
+    grid-template-rows: 60px 300px;
 }
+
+.containerTop {
+    background-color:deepskyblue;
+    height:60px;
+    width:360px;
+    border:1px solid gray;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.containerBottom {
+    display:grid;
+    grid-template-columns: 180px 60px 180px;
+    width:300px;
+    height:250px;
+}
+
+.numberPane {
+    width:150px;
+    height:200px;
+    display:grid;
+    grid-template-columns:50px 50px 50px;
+    grid-template-rows: 50px 50px 50px 50px;
+}
+
 
 .number,
 .operators {
     font-size:50px;
     font-weight:bolder;
-    color:coral;
+    color:black;
 }
 
 .operators {
@@ -34,8 +58,8 @@ body {
 }
 
 .equation {
-    background-color:dodgerblue;
     font-size:50px;
     width:50px;
     height:50px;
 }
+
